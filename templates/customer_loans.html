@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customer Loans</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f5f5f5;
+        }
+
+        .navbar {
+            background: #1a7a7a;
+            color: white;
+            padding: 14px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .container {
+            padding: 22px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+            border-bottom: 2px solid #1a7a7a;
+            padding-bottom: 5px;
+        }
+
+        table {
+            width: 100%;
+            background: white;
+            border-collapse: collapse;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background: #1a7a7a;
+            color: white;
+        }
+
+        tr:hover {
+            background: #f1f1f1;
+        }
+
+        .btn {
+            padding: 6px 14px;
+            background-color: white;
+            color: #1a7a7a;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .pending {
+            color: orange;
+            font-weight: bold;
+        }
+
+        .approved {
+            color: green;
+            font-weight: bold;
+        }
+
+        .rejected {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <h2>📄 Customer Loan Details</h2>
+    <a href="/view_customers" class="btn">Back</a>
+</div>
+
+<div class="container">
+    <div class="section-title">Loans for Customer #{{ id if id is defined else '' }}</div>
+
+    {% if data and data|length > 0 %}
+    <table>
+        <tr>
+            <th>Loan ID</th>
+            <th>Customer ID</th>
+            <th>Amount</th>
+            <th>Interest Rate</th>
+            <th>Duration (Months)</th>
+            <th>Status</th>
+        </tr>
+        {% for l in data %}
+        <tr>
+            <td>{{ l.loan_id }}</td>
+            <td>{{ l.customer_id }}</td>
+            <td>₹{{ l.amount }}</td>
+            <td>{{ l.interest_rate }}%</td>
+            <td>{{ l.duration }}</td>
+            <td class="{{ l.status }}">{{ l.status }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p style="background:white; padding:20px; border-radius:6px;">No loans found for this customer.</p>
+    {% endif %}
+</div>
+
+</body>
+</html>

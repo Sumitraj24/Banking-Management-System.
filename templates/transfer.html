@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Transfer Money</title>
+    <style>
+        body { font-family: Arial; margin:0; background:#f5f5f5; }
+
+        .navbar {
+            background:#1a7a7a; color:white;
+            padding:14px 20px;
+            display:flex; justify-content:space-between;
+        }
+
+        .main { padding:22px; }
+
+        .card {
+            background:white;
+            border-radius:6px;
+            padding:20px;
+            max-width:400px;
+            margin:auto;
+        }
+
+        input {
+            width:100%;
+            padding:10px;
+            margin:10px 0;
+            border:1px solid #ddd;
+            border-radius:4px;
+        }
+
+        button {
+            background:#1a7a7a;
+            color:white;
+            padding:10px;
+            border:none;
+            width:100%;
+            border-radius:4px;
+            cursor:pointer;
+        }
+
+        button:hover { background:#155f5f; }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <h2>🔄 Transfer Money</h2>
+    <a href="/home"><button>Back</button></a>
+</div>
+
+<div class="main">
+    <div class="card">
+        <h3>Transfer Between Accounts</h3>
+
+        <form method="POST">
+            <input type="number" name="from_account" placeholder="From Account ID" required>
+            <input type="number" name="to_account" placeholder="To Account ID" required>
+            <input type="number" name="amount" placeholder="Amount" required>
+
+            <button type="submit">Transfer</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

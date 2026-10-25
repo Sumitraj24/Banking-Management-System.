@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1a7a7a, #0f5c61);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card {
+            width: 400px;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            margin-bottom: 4px;
+        }
+
+        h2 {
+            margin: 0;
+            color: #1a7a7a;
+            font-size: 17px;
+        }
+
+        .subtitle {
+            font-size: 12px;
+            color: #777;
+            margin-bottom: 16px;
+        }
+
+        /* Two column grid */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .form-full {
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 3px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 13px;
+            box-sizing: border-box;
+            transition: 0.2s;
+            font-family: Arial, sans-serif;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #1a7a7a;
+            box-shadow: 0 0 4px rgba(26,122,122,0.3);
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #1a7a7a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 13px;
+            margin-top: 8px;
+            font-family: Arial, sans-serif;
+        }
+
+        button:hover {
+            background: #155f5f;
+        }
+
+        .links {
+            margin-top: 14px;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .links a {
+            color: #1a7a7a;
+            text-decoration: none;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Error message */
+        .error {
+            background-color: #ffe0e0;
+            color: #cc0000;
+            border: 1px solid #ffb3b3;
+            padding: 7px 12px;
+            border-radius: 5px;
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+
+        /* Success message */
+        .success {
+            background-color: #e0f5e0;
+            color: #2e7d32;
+            border: 1px solid #a5d6a7;
+            padding: 7px 12px;
+            border-radius: 5px;
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid #eee;
+            margin: 14px 0 0 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div class="logo">🏦</div>
+    <h2>Employee Register</h2>
+    <div class="subtitle">Create your banking account</div>
+
+    {% if error %}
+    <div class="error">{{ error }}</div>
+    {% endif %}
+
+    {% if success %}
+    <div class="success">{{ success }}</div>
+    {% endif %}
+
+    <form method="POST">
+
+        <!-- Row 1 -->
+        <div class="form-grid">
+            <div>
+                <label>Employee ID</label>
+                <input type="text" name="emp_id" placeholder="e.g. EMP001" required>
+            </div>
+            <div>
+                <label>Full Name</label>
+                <input type="text" name="name" placeholder="Your name" required>
+            </div>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="form-grid">
+            <div>
+                <label>Email</label>
+                <input type="email" name="email" placeholder="email@bank.com" required>
+            </div>
+            <div>
+                <label>Branch ID</label>
+                <input type="text" name="branch_id" placeholder="e.g. BR01" required>
+            </div>
+        </div>
+
+        <!-- Row 3 -->
+        <div class="form-grid">
+            <div>
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Password" required>
+            </div>
+            <div>
+                <label>MPIN</label>
+                <input type="password" name="MPIN" placeholder="4 digit MPIN" required>
+            </div>
+        </div>
+
+        <!-- Full width -->
+        <div class="form-full">
+            <label>Role</label>
+            <input type="text" name="role" placeholder="e.g. Manager, Cashier" required>
+        </div>
+
+        <button type="submit">Register</button>
+
+    </form>
+
+    <hr class="divider">
+    <div class="links">
+        Already have an account? <a href="/login">Login here</a>
+    </div>
+</div>
+
+</body>
+</html>

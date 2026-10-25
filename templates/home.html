@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Banking Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #1a7a7a;
+            color: white;
+            padding: 14px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h2 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .navbar-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+        }
+
+        .profile-btn {
+            background-color: transparent;
+            border: 1px solid white;
+            color: white;
+            padding: 7px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            text-decoration: none;
+        }
+
+        .logout-btn {
+            background-color: white;
+            color: #1a7a7a;
+            border: none;
+            padding: 7px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        /* Main */
+        .main {
+            flex: 1;
+            padding: 22px;
+        }
+
+        .main h3 {
+            color: #155f5f;
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        .main .subtitle {
+            color: #888;
+            font-size: 13px;
+            margin-bottom: 22px;
+        }
+
+        /* Stat boxes */
+        .stat-boxes {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stat-box {
+            background-color: white;
+            border: 1px solid #ddd;
+            padding: 20px;
+            text-align: center;
+            border-radius: 6px;
+        }
+
+        .stat-box h4 {
+            margin: 0 0 8px 0;
+            font-size: 13px;
+            color: #666;
+            font-weight: normal;
+        }
+
+        .stat-box p {
+            margin: 0;
+            font-size: 28px;
+            font-weight: bold;
+            color: #1a7a7a;
+        }
+
+        .stat-box small {
+            color: #aaa;
+            font-size: 11px;
+        }
+
+        /* Section title */
+        .section-title {
+            font-size: 15px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid #1a7a7a;
+        }
+
+        /* Cards */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .card {
+            background-color: white;
+            border: 1px solid #ddd;
+            padding: 16px;
+            border-radius: 6px;
+        }
+
+        .card:hover {
+            border-color: #1a7a7a;
+            transform: translateY(-3px);
+            transition: 0.2s;
+        }
+
+        .card h4 {
+            margin: 0 0 7px 0;
+            font-size: 14px;
+            color: #222;
+        }
+
+        .card p {
+            font-size: 12px;
+            color: #888;
+            margin: 0 0 12px 0;
+            line-height: 1.5;
+        }
+
+        .card button {
+            background-color: #1a7a7a;
+            color: white;
+            border: none;
+            padding: 7px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .card button:hover {
+            background-color: #155f5f;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background: white;
+            width: 350px;
+            margin: 100px auto;
+            padding: 20px;
+            border-radius: 6px;
+        }
+
+        .modal-content h3 {
+            margin-bottom: 10px;
+            color: #1a7a7a;
+        }
+
+        .modal-content input, .modal-content select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .close {
+            float: right;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+    <div class="navbar-left">
+        <h2>🏦 Banking Dashboard</h2>
+    </div>
+    <div class="navbar-right">
+        <span>Welcome, {{ name }}</span>
+        <a href="/profile" class="profile-btn">My Profile</a>
+        <a href="/logout"><button class="logout-btn">Logout</button></a>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="main">
+
+        <h3>Admin Dashboard</h3>
+        <div class="subtitle">Welcome back, {{ name }}. Monitor system performance and manage operations efficiently.</div>
+
+        <!-- Stat Boxes -->
+        <div class="stat-boxes">
+            <div class="stat-box">
+                <h4>Total Customers</h4>
+                <p>{{ total_customers }}</p>
+                <small>+4 this week</small>
+            </div>
+            <div class="stat-box">
+                <h4>Total Accounts</h4>
+                <p>{{ total_accounts }}</p>
+                <small>+2 new</small>
+            </div>
+            <div class="stat-box">
+                <h4>Pending Loans</h4>
+                <p>{{ pending_loans }}</p>
+                <small>Need approval</small>
+            </div>
+            <div class="stat-box">
+                <h4>Fraud Alerts</h4>
+                <p style="color: #cc0000;">{{ fraud_count }}</p>
+                <small style="color: #cc0000;">Check now</small>
+            </div>
+            <div class="stat-box">
+                <h4>Total Bank Balance</h4>
+                <p>₹ {{ total_bank_balance }}</p>
+                <small>All accounts combined</small>
+            </div>
+            <div class="stat-box">
+                <h4>Total Transactions</h4>
+                <p>₹ {{ total_txn_amount }}</p>
+                <small>All transactions</small>
+            </div>
+            <div class="stat-box">
+                <h4>Active EMIs</h4>
+                <p>{{ active_emis }}</p>
+                <small>Ongoing EMI payments</small>
+            </div>
+            <div class="stat-box">
+                <h4>Total Employees</h4>
+                <p>{{ total_employees }}</p>
+                <small>System users</small>
+            </div>
+        </div>
+
+        <!-- Cards -->
+        <div class="section-title">Admin Controls</div>
+        <div class="cards">
+
+            <div class="card">
+                <h4>➕ Add Customer</h4>
+                <p>Register a new customer in the system.</p>
+                <button onclick="openModal('addCustomerModal')">Add</button>
+            </div>
+
+            <div class="card">
+                <h4>📋 Customer Database</h4>
+                <p>View and search all customers.</p>
+                <a href="/view_customers"><button>Manage</button></a>
+            </div>
+
+            <div class="card">
+                <h4>💳 Account Creation</h4>
+                <p>Open accounts for customers.</p>
+                <a href="/create_account"><button>Create</button></a>
+            </div>
+
+            <div class="card">
+                <h4>🔄 Transactions</h4>
+                <p>Total Transactions: ₹ {{ total_txn_amount }}</p>
+                <a href="/transactions"><button>View</button></a>
+            </div>
+
+
+            <div class="card">
+                <h4>⚠️ Fraud Detection</h4>
+                <p>Check suspicious transactions.</p>
+                <a href="/fraud"><button>Check</button></a>
+            </div>
+
+            <div class="card">
+                <h4>🔒 Security Control</h4>
+                <p>Freeze or restrict accounts.</p>
+                <a href="/accounts"><button>Freeze</button></a>
+            </div>
+
+            <div class="card">
+                <h4>📄 Loan Control</h4>
+                <p>Approve or reject loan applications.</p>
+                <a href="/loan"><button>Manage</button></a>
+            </div>
+
+            <div class="card">
+                <h4>📊 Reports</h4>
+                <p>View branch performance.</p>
+                <a href="/reports"><button>Open</button></a>
+            </div>
+
+            <div class="card">
+                <h4>🧑‍💼 Employee Management</h4>
+                <p>Manage employee roles and permissions.</p>
+                <a href="/employees"><button>Manage</button></a>
+            </div>
+
+            <div class="card">
+                <h4>🔁 Transfer Money</h4>
+                <p>Send money between accounts</p>
+                <button onclick="openModal('transferModal')">Transfer</button>
+            </div>
+
+            <div class="card">
+                <h4>💰 Deposit / Withdraw</h4>
+                <p>Add or remove money from any account.</p>
+                <button onclick="openModal('transactionModal')">Open</button>
+            </div>
+
+            <div class="card">
+                <h4>❌ Terminate Account</h4>
+                <p>Delete an account permanently from the system.</p>
+                <button onclick="openModal('terminateModal')">Delete</button>
+            </div>
+
+        </div>
+    </div>
+
+<!-- Transaction Modal -->
+<div id="transactionModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('transactionModal')">&times;</span>
+    <h3>Deposit / Withdraw</h3>
+    <form method="POST" action="/make_transaction">
+      <input type="number" name="account_id" placeholder="Account ID" required>
+      <input type="number" name="amount" placeholder="Amount" required>
+      <select name="type">
+        <option value="deposit">Deposit</option>
+        <option value="withdraw">Withdraw</option>
+      </select>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</div>
+<!-- Terminate Account Modal -->
+<div id="terminateModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('terminateModal')">&times;</span>
+    <h3>Terminate Account</h3>
+    <form method="POST" action="/delete_account" onsubmit="return confirmDelete()">
+      <input type="number" name="account_id" placeholder="Account ID" required>
+      <select name="reason" required>
+        <option value="">Select Reason</option>
+        <option value="fraud">Fraud</option>
+        <option value="suspicious">Suspicious Activity</option>
+        <option value="user_request">User Request</option>
+        <option value="duplicate">Duplicate Account</option>
+        <option value="other">Other</option>
+      </select>
+      <button type="submit" style="background-color:red;">Delete</button>
+    </form>
+  </div>
+</div>
+</body>
+
+<!-- Add Customer Modal -->
+<div id="addCustomerModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('addCustomerModal')">&times;</span>
+    <h3>Add Customer</h3>
+    <form method="POST" action="/add_customer">
+      <input name="name" placeholder="Name" required>
+      <input name="email" placeholder="Email" required>
+      <input name="phone" placeholder="Phone" required>
+      <input name="address" placeholder="Address" required>
+      <button type="submit">Add</button>
+    </form>
+  </div>
+</div>
+
+<!-- Transfer Modal -->
+<div id="transferModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('transferModal')">&times;</span>
+    <h3>Transfer Money</h3>
+    <form method="POST" action="/transfer">
+      <input type="number" name="from_account" placeholder="From Account" required>
+      <input type="number" name="to_account" placeholder="To Account" required>
+      <input type="number" name="amount" placeholder="Amount" required>
+      <button type="submit">Transfer</button>
+    </form>
+  </div>
+</div>
+
+<script>
+function openModal(id){
+    document.getElementById(id).style.display = "block";
+}
+function closeModal(id){
+    document.getElementById(id).style.display = "none";
+}
+
+function confirmDelete(){
+    return confirm("⚠️ CONFIRM ACCOUNT DELETION\n\nAre you sure you want to permanently delete this account?\n\n⚠️ Warning:\n• All data will be lost\n• This action cannot be undone\n\nClick OK to proceed or Cancel to stop.");
+}
+</script>
+</html>
